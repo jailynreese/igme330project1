@@ -4,7 +4,7 @@ const canvasWidth = 400, canvasHeight = 300;
 		const c = 1.4;
 		const divergence = 137.99;
 
-		let imgURL = "https://lh3.googleusercontent.com/proxy/HL1-uOkOyFNL4gSMHwSy7SQX-JKrVEMdA5G0k5tCcNTgpuA6OzPqRWCNHEohWEYZ7KEQr_MT9MrMykV5jD0KPhYNhEXhd4kKgyfKf7PMDQphgOckMHtLVNBKGJ9yLic5BoHctNaNuP2BSbMflSdhmhcJMS7fIlIWZjKv5YMHxdT9LA";
+		let imgURL = "http://clipart-library.com/new_gallery/77-771163_free-disneyland-castle-clipart-disney-castle-logo-png.png";
 
 		function preloadImage(url, callback) {
 			// 1 - create a new Image object
@@ -36,7 +36,7 @@ const canvasWidth = 400, canvasHeight = 300;
 			//loop();
 
 			preloadImage(imgURL, function (image) {
-				loop();
+				loop(image);
 				console.log("image loaded");	
 				ctx.drawImage(image, 100,100, 200,200);
 			});
@@ -58,8 +58,19 @@ const canvasWidth = 400, canvasHeight = 300;
 			ctx.restore();
 		}
 
-		function loop() {
-			// each frame draw a new dot
+		function loop(image) {
+
+            if(n > 100){
+                n = 0;
+                ctx.fillRect(0, 0, canvasWidth, canvasHeight, "black");
+            }
+
+            phyllotax();
+
+        }
+
+        function phyllotax(){
+            // each frame draw a new dot
 			// `a` is the angle
 			// `r` is the radius from the center (e.g. "Pole") of the flower
 			// `c` is the "padding/spacing" between the dots
@@ -68,12 +79,11 @@ const canvasWidth = 400, canvasHeight = 300;
 			setTimeout(loop, 1000 / 30);
 			n++;
 			// now calculate the `x` and `y`
-			let x = r * Math.cos(a) + canvasWidth / 2;
-			let y = r * Math.sin(a) + canvasHeight / 2;
+			let x = r * Math.cos(a) + canvasWidth / 4;
+			let y = r * Math.sin(a) + canvasHeight / 4;
 			let aDegrees = (n * ((Math.PI / 2) % divergence)) % 225;
 			let color = `rgb(${aDegrees},24,175)`;
 			drawCircle(ctx, x, y, 2, color);
-
         }
         
         export{init};
