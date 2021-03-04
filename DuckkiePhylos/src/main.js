@@ -65,11 +65,11 @@ const canvasWidth = 400, canvasHeight = 300;
                 ctx.fillRect(0, 0, canvasWidth, canvasHeight, "black");
             }
 
-            phyllotax();
+            phyllotax(canvasWidth/4, canvasHeight/4);
 
         }
 
-        function phyllotax(){
+        function phyllotax(xInput,yInput){
             // each frame draw a new dot
 			// `a` is the angle
 			// `r` is the radius from the center (e.g. "Pole") of the flower
@@ -79,8 +79,8 @@ const canvasWidth = 400, canvasHeight = 300;
 			setTimeout(loop, 1000 / 30);
 			n++;
 			// now calculate the `x` and `y`
-			let x = r * Math.cos(a) + canvasWidth / 4;
-			let y = r * Math.sin(a) + canvasHeight / 4;
+			let x = r * Math.cos(a) + xInput;
+			let y = r * Math.sin(a) + yInput;
 			let aDegrees = (n * ((Math.PI / 2) % divergence)) % 225;
 			let color = `rgb(${aDegrees},24,175)`;
 			drawCircle(ctx, x, y, 2, color);
