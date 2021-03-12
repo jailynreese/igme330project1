@@ -27,6 +27,13 @@ class Firework {
             // `a` is the angle
             // `r` is the radius from the center (e.g. "Pole") of the flower
             // `c` is the "padding/spacing" between the dots
+            setTimeout(loop,1000/12);
+            ctx.save();
+            ctx.fillStyle = 'black';
+            ctx.globalAlpha = 1/fps 
+            ctx.fillRect(0,0,canvasWidth,canvasHeight);
+            ctx.restore();
+        
             let a = this.n * utils.dtr(this.divergence);
             //c = 4 
             let r = 4 * Math.sqrt(this.n);
