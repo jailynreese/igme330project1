@@ -20,7 +20,9 @@ const DEFAULTS = Object.freeze({
     sound5: "audio/bare_necessities.mp3",
 });
 
-let test;
+let firework1, firework2;
+let volumeSlider = document.querySelector("#volumeSlider");
+let volumeLabel = document.querySelector("#volumeLabel");
 
 window.onload = init;
 
@@ -29,21 +31,41 @@ function init() {
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-    //loop();
 
-    utils.preloadImage(imgURL, function (image) {
-        loop(image);
+    firework1 = new classes.Firework(75, 100, volumeLabel.innerHTML, "yellow", 0, 137, 400);
+    firework2 = new classes.Firework(325, 100, volumeLabel.innerHTML, "yellow", 0, 137, 400);
+
+    let image = utils.preloadImage(imgURL, function (image) {
+        
         console.log("image loaded");
         ctx.drawImage(image, 100, 100, 200, 200);
     });
 
     audio.setupWebaudio(DEFAULTS);
     setupUI();
+
+    const playButton = document.querySelector("#playButton");
+
+    playButton.onclick = e => {
+
+        audio.loadSoundFile(trackSelect.value);
+        if (audio.audioCtx.state == "suspended") {
+            audio.audioCtx.resume();
+            loop();
+        }
+        if (e.target.dataset.playing == "no") {
+            audio.playCurrentSound();
+            e.target.dataset.playing = "yes";
+            loop();
+        } else {
+            audio.pauseCurrentSound();
+            e.target.dataset.playing = "no";
+        }
+    }
+
 }
 
 function setupUI() {
-    let volumeSlider = document.querySelector("#volumeSlider");
-    let volumeLabel = document.querySelector("#volumeLabel");
 
     volumeSlider.oninput = e => {
         audio.setVolume(e.target.value);
@@ -60,56 +82,30 @@ function setupUI() {
         }
     };
 
-    const playButton = document.querySelector("#playButton");
-
-    playButton.onclick = e => {
-        audio.loadSoundFile(trackSelect.value);
-        if (audio.audioCtx.state == "suspended") {
-            audio.audioCtx.resume();
-        }
-        if (e.target.dataset.playing == "no") {
-            audio.playCurrentSound();
-            e.target.dataset.playing = "yes";
-        } else {
-            audio.pauseCurrentSound();
-            e.target.dataset.playing = "no";
-        }
-    }
-
-    test = new classes.Firework(100, 100, 50, "yellow",0 , 137,400);
 }
 
 
-function loop(image) {
+function loop(play) {
 
     utils.preloadImage(imgURL, function (image) {
         ctx.drawImage(image, 100, 100, 200, 200);
     });
 
-    //ctx.fillRect(0, 0, canvasWidth, canvasHeight, "black");
 
     setTimeout(loop, 1000 / 10);
 
-    test.explode(ctx);
+    firework1.explode(ctx);
+    firework2.explode(ctx);
+    let randomY = Math.random() * 400 - 20;
+    //once firework is finished will reset it
+    if(firework1.explode(ctx) == false){
+        firework1.reset(volumeLabel.innerHTML, randomY);
+    }
 
+    if(firework2.explode(ctx) == false){
+        firework2.reset(volumeLabel.innerHTML, randomY);
+    }
 }
-
-// function phyllotaxis(xInput, yInput) {
-//     // each frame draw a new dot
-//     // `a` is the angle
-//     // `r` is the radius from the center (e.g. "Pole") of the flower
-//     // `c` is the "padding/spacing" between the dots
-//     let a = n * utils.dtr(divergence);
-//     let r = c * Math.sqrt(n);
-
-//     n++;
-//     // now calculate the `x` and `y`
-//     let x = r * Math.cos(a) + xInput;
-//     let y = r * Math.sin(a) + yInput;
-//     let aDegrees = (n * ((Math.PI / 2) % divergence)) % 225;
-//     let color = `rgb(${aDegrees},24,175)`;
-//     utils.drawCircle(ctx, x, y, 2, color);
-// }
 
 
 export { init };

@@ -25,6 +25,8 @@ function preloadImage(url, callback) {
 
     // 3 - start downloading the image (it is located on an RIT server)
     img.src = url;
+
+    return img;
 }
 
 function dtr(degrees) {
