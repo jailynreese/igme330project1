@@ -6,54 +6,22 @@
 	<title>Disneyland Firework Spectacular</title>
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Bigelow+Rules&display=swap" rel="stylesheet">
-	<style>
-
-		h1 {
-			font-family: 'Bigelow Rules', cursive;
-			font-size: 2.5em;
-		}
-
-		canvas {
-			border: 1px solid black;
-		}
-
-		#controls {
-			margin-left: 1rem;
-		}
-
-		#volumeLabel {
-			margin-left: 1rem;
-		}
-
-		section {
-			margin-bottom: 1rem;
-		}
-
-		#playButton {
-			font-size: 1.2rem;
-			width: 6rem;
-		}
-
-		button[data-playing="yes"]:after {
-			content: "Pause";
-		}
-
-		button[data-playing="no"]:after {
-			content: "Play";
-		}
-	</style>
+	<link href="stylization/styles.css" rel="stylesheet">
 	<script type="module" src="src/loader.js"></script>
 </head>
 
 <body>
+	
 	<h1>Disneyland Firework Spectacular</h1>
-	<canvas id="canvas" width="600" height="400"></canvas>
+	<div class="flex container">
+	<canvas class="item" id="canvas" width="600" height="400"></canvas>
 	<section>
+	
 			<button id="playButton" data-playing="no"></button>
-		Volume: <input type="range" id="volumeSlider" min="0" max="2" value="1" step="0.01">
-		<span id="volumeLabel">???</span>
+			Volume: <input type="range" id="volumeSlider" min="0" max="2" value="1" step="0.01">
+			<span id="volumeLabel">???</span>
+	
 	</section>
-
 	<label>Track:
 		<select id="trackSelect">
 			<option value="audio/a_whole_new_world.mp3">A Whole New World</option>
@@ -64,7 +32,9 @@
 			<option value="audio/bare_necessities.mp3">Bare Necessities</option>
 		</select>
 	</label>
-
+	</div>
+	<p>Here is the Disney Firework Spectacular!<br>
+	Adjust the volume to change the size of the firework!<br>
+	Also pick from one of the six songs of choice!</p>
 </body>
-
 </html>
