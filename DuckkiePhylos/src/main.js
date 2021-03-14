@@ -32,8 +32,10 @@ function init() {
     canvas.height = canvasHeight;
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-    firework1 = new classes.Firework(75, 100, volumeLabel.innerHTML, "yellow", 0, 137, 400);
-    firework2 = new classes.Firework(325, 100, volumeLabel.innerHTML, "yellow", 0, 137, 400);
+    let angle = parseInt(volumeLabel.innerHTML) + 100;
+    console.log(angle);
+    firework1 = new classes.Firework(75, 100, 50, "yellow", 0,  angle, 400);
+    firework2 = new classes.Firework(325, 100, 50, "yellow", 0, angle, 400);
 
     let image = utils.preloadImage(imgURL, function (image) {
         
@@ -99,11 +101,11 @@ function loop(play) {
     let randomY = Math.random() * 400 - 20;
     //once firework is finished will reset it
     if(firework1.explode(ctx) == false){
-        firework1.reset(volumeLabel.innerHTML, randomY);
+        firework1.reset(volumeLabel.innerHTML + 100, randomY);
     }
 
     if(firework2.explode(ctx) == false){
-        firework2.reset(volumeLabel.innerHTML, randomY);
+        firework2.reset(volumeLabel.innerHTML + 100, randomY);
     }
 }
 

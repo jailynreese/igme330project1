@@ -36,7 +36,7 @@ class Firework {
             let circleX = r * Math.cos(a) + this.x;
             let circleY = r * Math.sin(a) + this.y;
             let aDegrees = (this.n * ((Math.PI / 2) % this.divergence)) % 225;
-            let colors = `rgb(${aDegrees},24,175)`;
+            let colors = `hsl(${(aDegrees%100)},100%,50%)`;
             utils.drawCircle(ctx, circleX, circleY, 2, colors);
         } else {
             return false;
@@ -52,9 +52,9 @@ class Firework {
     }
 
 
-    reset(size, y) {
+    reset(angle, y) {
         this.y = y;
-        this.size = size;
+        this.divergence = angle;
         this.n = 0;
         this.yFirework = 400;
     }
