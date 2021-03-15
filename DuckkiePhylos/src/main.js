@@ -19,10 +19,13 @@ const DEFAULTS = Object.freeze({
     sound5: "audio/a_whole_new_world.mp3",
     sound5: "audio/bare_necessities.mp3",
 });
+const playButton = document.querySelector("#playButton");
 
 let firework1, firework2;
+let angle;
 let volumeSlider = document.querySelector("#volumeSlider");
 let volumeLabel = document.querySelector("#volumeLabel");
+let timeOut;
 
 window.onload = init;
 
@@ -32,8 +35,7 @@ function init() {
     canvas.height = canvasHeight;
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-    let angle = parseInt(volumeLabel.innerHTML) + 100;
-    console.log(angle);
+    angle = parseInt(volumeLabel.innerHTML) + 100;
     firework1 = new classes.Firework(75, 100, 50, "yellow", 0,  angle, 400);
     firework2 = new classes.Firework(325, 100, 50, "yellow", 0, angle, 400);
 
@@ -46,30 +48,32 @@ function init() {
     audio.setupWebaudio(DEFAULTS);
     setupUI();
 
-    const playButton = document.querySelector("#playButton");
-
     playButton.onclick = e => {
 
         audio.loadSoundFile(trackSelect.value);
         if (audio.audioCtx.state == "suspended") {
             audio.audioCtx.resume();
-            loop();
+            timeOut = setTimeout(loop, 1000 / 10);
         }
         if (e.target.dataset.playing == "no") {
             audio.playCurrentSound();
             e.target.dataset.playing = "yes";
-            loop();
+            timeOut = setTimeout(loop, 1000 / 10);
         } else {
             audio.pauseCurrentSound();
             e.target.dataset.playing = "no";
+            clearTimeout(timeOut);
         }
     }
+
+    
 
 }
 
 function setupUI() {
 
     volumeSlider.oninput = e => {
+        angle = parseInt(volumeLabel.innerHTML) + 100;
         audio.setVolume(e.target.value);
         volumeLabel.innerHTML = Math.round(e.target.value / 2 * 100);
     };
@@ -94,18 +98,18 @@ function loop(play) {
     });
 
 
-    setTimeout(loop, 1000 / 10);
+    timeOut = setTimeout(loop, 1000 / 10);
 
     firework1.explode(ctx);
     firework2.explode(ctx);
     let randomY = Math.random() * 400 - 20;
     //once firework is finished will reset it
     if(firework1.explode(ctx) == false){
-        firework1.reset(volumeLabel.innerHTML + 100, randomY);
+        firework1.reset(angle, randomY);
     }
 
     if(firework2.explode(ctx) == false){
-        firework2.reset(volumeLabel.innerHTML + 100, randomY);
+        firework2.reset(angle, randomY);
     }
 }
 

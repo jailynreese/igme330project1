@@ -13,14 +13,13 @@ class Firework {
     }
 
     explode(ctx) {
-        //setTimeout(this.explode, 1000 / 30);
 
         //shoot up while yFirework gets to desired y value
         if (this.yFirework > this.y) {
             utils.drawCircle(ctx, this.x, this.yFirework, 2, "rgba(255,255,255,0.7)");
             this.yFirework -= 10;
 
-        //create phyllotax until given size 
+            //create phyllotax until given size 
         } else if (this.n < this.size) {
             // each frame draw a new dot
             // `a` is the angle
@@ -36,7 +35,7 @@ class Firework {
             let circleX = r * Math.cos(a) + this.x;
             let circleY = r * Math.sin(a) + this.y;
             let aDegrees = (this.n * ((Math.PI / 2) % this.divergence)) % 225;
-            let colors = `hsl(${(aDegrees%100)},100%,50%)`;
+            let colors = `hsl(${(aDegrees % 100)},100%,50%)`;
             utils.drawCircle(ctx, circleX, circleY, 2, colors);
         } else {
             return false;
