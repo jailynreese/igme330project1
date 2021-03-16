@@ -21,7 +21,7 @@ body{
 }
 
 canvas {
-    padding: 0;
+
     margin: auto;
     display: block;
     position: absolute;
@@ -31,15 +31,6 @@ canvas {
     right: 0;
 }
 
-#controls {
-    margin-left: 1rem;
-    
-}
-
-#volumeLabel {
-    margin-left: 1rem;
-    
-}
 
 section {
     margin-bottom: 1rem;
@@ -53,6 +44,10 @@ section {
     border-radius: 4px;
     align-self: center;
     
+}
+
+#volumeLabel{
+    padding-right: 30px;
 }
 
 button[data-playing="yes"]:after {
@@ -69,7 +64,6 @@ button[data-playing="no"]:after {
     align-items:center;
     flex-direction: column;
     
-    
 }
 
 .container {
@@ -83,5 +77,5 @@ button[data-playing="no"]:after {
 
 p{
     text-align: center;
-    padding-top: 400px;
+    padding-top: 10px;
 }
