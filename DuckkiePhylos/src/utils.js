@@ -33,4 +33,9 @@ function dtr(degrees) {
     return degrees * (Math.PI / 180);
 }
 
-export {preloadImage, drawCircle, dtr};
+function getRandom(min,max){
+    let random = Math.floor(Math.random() * (max - min)) + min;
+    return random;
+}
+
+export {preloadImage, drawCircle, dtr, getRandom};

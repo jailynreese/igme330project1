@@ -35,7 +35,7 @@ class Firework {
             let circleX = r * Math.cos(a) + this.x;
             let circleY = r * Math.sin(a) + this.y;
             let aDegrees = (this.n * ((Math.PI / 2) % this.divergence)) % 225;
-            let colors = `hsl(${(aDegrees % 100)},100%,50%)`;
+            let colors = `hsl(${this.color}, 100%,50%)`;
             utils.drawCircle(ctx, circleX, circleY, 2, colors);
         } else {
             return false;
@@ -50,12 +50,17 @@ class Firework {
         ctx.restore();
     }
 
-
+    //starts at bottom again
     reset(angle, y) {
         this.y = y;
         this.divergence = angle;
         this.n = 0;
         this.yFirework = 400;
+    }
+
+    //changes color when slider value changes
+    updateColor(hsv){
+        this.color = hsv;
     }
 }
 
